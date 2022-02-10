@@ -28,6 +28,16 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        //
+        Passport::tokensCan([
+            'read-tasks' => 'Read all task',
+            'add-task' => 'Add new task',
+            'edit-task' => 'Edit a task',
+            'delete-task' => 'Delete a task',
+            'done-tasks' => 'Done a task',
+        ]);
+
+        Passport::setDefaultScope([
+            'read-tasks'
+        ]);
     }
 }

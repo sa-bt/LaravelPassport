@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware(['auth:api'])->get('/todos', function (Request $request) {
+    if ($request->user()->tokenCan('read-tasks')) {
+        return $request->user()->tasks;
+    } else {
+        return response()->json(['error' => 'Unauthenticated']);
+    }
+});
