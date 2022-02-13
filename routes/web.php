@@ -26,3 +26,8 @@ Route::post('/task/{task}','TaskController@update');
 
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
+
+
+Route::get('/client', function () {
+    return view('home');
+});
