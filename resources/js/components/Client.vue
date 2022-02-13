@@ -3,15 +3,29 @@
         <div class="col-md-9" align="center">
             <div class="panel-heading">
                 <div>
-                    <label>Please login through SPA Client</label>
+                    <label>Please get user's tasks through SPA Client</label>
                 </div>
                 <div>
-                    <button type="button" @click="login" class="btn btn-primary">Login with SPA client</button>
+                    <button type="button" @click="login" class="btn btn-primary">Get data with SPA client</button>
                 </div>
             </div>
         </div>
+        <p></p>
         <div id="app">
-            {{ message }}
+            <table class="table table-borderless mb-1">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="task in tasks">
+                    <td>{{task.id}}</td>
+                    <td>{{task.description}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -20,40 +34,17 @@
 export default {
     data() {
         return {
-            message: '',
+            tasks: [],
         }
     },
 
     methods: {
         login() {
-            const url = 'http://localhost:8000/oauth/token';
 
-            const formData = {
-                grant_type: 'password',
-                client_id: 6,
-                client_secret: 'nVdwOznpuICLOxNv2e7dCDWc0lGeaqPeyjHyTDVT',
-                username: 'sa.bt@chmail.ir',
-                password: '123456789',
-                scope: '',
-            };
-
-            const headers = {
-                'Access-Control-Allow-Origin': '*',
-                Accept: '*/*',
-                'Content-Type': 'application/json'
-            };
-
-            axios({
-                json: true,
-                method: 'POST',
-                url: url,
-                data: formData,
-                headers: headers,
-            })
-                .then(response => (this.message = response.data))
-                .catch(function (response) {
-                    //handle error
-                    console.log(response);
+            axios.get('/api/todos')
+                .then(response => {
+                    this.tasks = response.data
+                    console.log(response.data);
                 });
         }
     }

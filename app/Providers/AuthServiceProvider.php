@@ -39,5 +39,8 @@ class AuthServiceProvider extends ServiceProvider
         Passport::setDefaultScope([
             'read-tasks'
         ]);
+
+        Passport::cookie('salam_SABT');
+
     }
 }

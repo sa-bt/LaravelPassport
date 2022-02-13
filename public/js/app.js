@@ -1926,41 +1926,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      message: ''
+      tasks: []
     };
   },
   methods: {
     login: function login() {
       var _this = this;
 
-      var url = 'http://localhost:8000/oauth/token';
-      var formData = {
-        grant_type: 'password',
-        client_id: 6,
-        client_secret: 'nVdwOznpuICLOxNv2e7dCDWc0lGeaqPeyjHyTDVT',
-        username: 'sa.bt@chmail.ir',
-        password: '123456789',
-        scope: ''
-      };
-      var headers = {
-        'Access-Control-Allow-Origin': '*',
-        Accept: '*/*',
-        'Content-Type': 'application/json'
-      };
-      axios({
-        json: true,
-        method: 'POST',
-        url: url,
-        data: formData,
-        headers: headers
-      }).then(function (response) {
-        return _this.message = response.data;
-      })["catch"](function (response) {
-        //handle error
-        console.log(response);
+      axios.get('/api/todos').then(function (response) {
+        _this.tasks = response.data;
+        console.log(response.data);
       });
     }
   }
@@ -39184,14 +39176,30 @@ var render = function() {
               attrs: { type: "button" },
               on: { click: _vm.login }
             },
-            [_vm._v("Login with SPA client")]
+            [_vm._v("Get data with SPA client")]
           )
         ])
       ])
     ]),
     _vm._v(" "),
+    _c("p"),
+    _vm._v(" "),
     _c("div", { attrs: { id: "app" } }, [
-      _vm._v("\n        " + _vm._s(_vm.message) + "\n    ")
+      _c("table", { staticClass: "table table-borderless mb-1" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.tasks, function(task) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(task.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(task.description))])
+            ])
+          }),
+          0
+        )
+      ])
     ])
   ])
 }
@@ -39200,7 +39208,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("label", [_vm._v("Please login through SPA Client")])])
+    return _c("div", [
+      _c("label", [_vm._v("Please get user's tasks through SPA Client")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")])
+      ])
+    ])
   }
 ]
 render._withStripped = true
