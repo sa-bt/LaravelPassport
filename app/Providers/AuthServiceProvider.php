@@ -40,7 +40,8 @@ class AuthServiceProvider extends ServiceProvider
             'read-tasks'
         ]);
 
-        Passport::cookie('salam_SABT');
+//        Passport::cookie('salam_SABT');
+//        Passport::tokensExpireIn(now()->addMinutes(1));
 
     }
 }
